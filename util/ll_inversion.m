@@ -52,7 +52,7 @@ case 'grid'
   inv.ll=ll;
 
 case 'fminsearch'
-  [~,nt]=d94(tend, tstart,[1 asigs(i) tas(j)], cmb);
+  [~,nt]=d94(tend, tstart,[1 par(1) par(2)], cmb);
   r0=length(cat)/nt; 
   fun = @(par) -loglikelihood([r0 par(1) par(2)], cat, tstart, tend, cmb);
   par = fminsearch(@(p) fun(p), [asig0 ta0]);
