@@ -1,15 +1,27 @@
-%xy_east_model.txt
-%input_file='~/code/ESPy_Demo/Outputs/my_experiment/stresses_horiz_profile.txt';
-%output_file='~/code/ESPy_Demo/Outputs/my_experiment/forecasts/eqks_horiz_profile.txt';
+input_file1='input/stresses_horiz_profile.txt';
+output_file1='output/eqks_horiz_profile.txt';
 
-%input_file='~/code/ESPy_Demo/Outputs/my_experiment/stresses_full.txt';
-%output_file='~/code/ESPy_Demo/Outputs/my_experiment/forecasts/eqks_full.txt';
+ts=1:10:1e4; %time steps (days)
+t0=1e-5; %start time 
+r0=0.2; %background seismicity rate, days^-1 
+asig=10; %kPa (as in input files)
+ta=1e3; %aftershock decay time (days)
 
-%input_file='~/code/ESPy_Demo/Outputs/my_experiment/stresses_horiz_profile.txt';
-%output_file='~/code/ESPy_Demo/Outputs/my_experiment/forecasts/eqks_horiz_profile.txt';
+[rate1 nt1 pos1] = coulomb2forecast(input_file1, ts, t0, ...
+		[r0 asig ta], output_file2);
 
-ts=1:10:1000;
-t0=1e-5;
-par=[1 1 1000];
+figure
+subplot(1,2,1)
+loglog(ts,mean(rate1));
+hold on
+plot(ts([1 end]), r0*[1 1])
+xlabel('Days since mainshock')
+ylabel('Seismicity rate (earthquakes/day)')
 
-[rate nt] = coulomb2forecast(input_file, ts, t0, par, output_file);
+subplot(1,2,2)
+scatter(pos1.lon, pos1.lat, 30, sum(nt1'))
+xlabel('longitude'); 
+ylabel('latitude')
+title('Total number of events')
+
+

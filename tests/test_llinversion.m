@@ -3,9 +3,9 @@ input_file='~/code/ESPy_Demo/Outputs/my_experiment/stresses_full.txt';
 
 %Load cmb stress changes:
 dt=0.5;
-ts=1:dt:300;
+ts=1e-5:dt:300;
 
-r0=1;
+r0=0.1;
 asig=1; %kPa
 ta=1e4;
 

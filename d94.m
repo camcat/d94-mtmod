@@ -20,11 +20,20 @@ ta=par(3);
 if length(par)>3 tdot=par(4); else tdot=asig/ta; end
 if length(par)>4 tdotr=par(5); else tdotr=tdot; end
 
-%Write eq. 12 in Dieterich, 1994, as: r = A/(B*exp(-t/ta)+1);
-A = r0*tdot/tdotr;
-B = tdot/tdotr*exp(-Dcmb/asig)-1;
+if length(Dcmb)>1
+   R=0; C=0;
+   for n=1:length(Dcmb)
+       [r c] = d94(t,t0,par,Dcmb(n)); 
+       R=R+r; C=C+c;
+   end
+else
 
-R = A./(B*exp(-t/ta)+1);
-%Integrate R between 0,t:
-C = A*ta*[log(exp(t/ta)+B) - log(exp(t0/ta)+B)];
+   %Write eq. 12 in Dieterich, 1994, as: r = A/(B*exp(-t/ta)+1);
+   A = r0*tdot/tdotr;
+   B = tdot/tdotr*exp(-Dcmb/asig)-1;
+
+   R = A./(B*exp(-t/ta)+1);
+   %Integrate R between 0,t:
+   C = A*ta*[log(exp(t/ta)+B) - log(exp(t0/ta)+B)];
+end
 
