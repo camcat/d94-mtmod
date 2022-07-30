@@ -1,5 +1,5 @@
-function [lat lon dep cmb lat_col lon_col dep_col cmb_col headers] = loadinput(fname);
-%function [lat lon dep cmb lat_col lon_col dep_col cmb_col headers] = loadinput(fname);
+function [cmb lat lon dep lat_col lon_col dep_col cmb_col headers] = loadinput(fname);
+%function [cmb lat lon dep lat_col lon_col dep_col cmb_col headers] = loadinput(fname);
 % Reads coordinates and stress changes from EPSy output file.
 % Returns: values (lat, lon, dep, cmb); column indices (xxx_col); a string to use as header.
 

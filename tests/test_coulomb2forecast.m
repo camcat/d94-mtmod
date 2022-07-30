@@ -1,6 +1,9 @@
 input_file1='input/stresses_horiz_profile.txt';
 output_file1='output/eqks_horiz_profile.txt';
 
+input_file2='input/stresses_full.txt';
+output_file2='output/eqks_full.txt';
+
 ts=1:10:1e4; %time steps (days)
 t0=1e-5; %start time 
 r0=0.2; %background seismicity rate, days^-1 
@@ -8,6 +11,9 @@ asig=10; %kPa (as in input files)
 ta=1e3; %aftershock decay time (days)
 
 [rate1 nt1 pos1] = coulomb2forecast(input_file1, ts, t0, ...
+		[r0 asig ta], output_file1);
+
+[rate2 nt2 pos2] = coulomb2forecast(input_file2, ts, t0, ...
 		[r0 asig ta], output_file2);
 
 figure

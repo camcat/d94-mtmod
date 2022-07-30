@@ -11,7 +11,7 @@ ta=1e4;
 
 %Forward simulation:
 [rate, ntot] = coulomb2forecast(input_file, ts, ts(1), [r0 asig ta]);
-[~, ~, ~, cmb] = loadinput(input_file);
+cmb = loadinput(input_file);
 
 rate=sum(rate);
 ntot=sum(ntot);
