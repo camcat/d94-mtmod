@@ -22,18 +22,23 @@ if length(rs_par)>4 tdotr=rs_par(5); else tdotr=tdot; end
 
 if length(Dcmb)>1
    R=0; C=0;
-   for n=1:length(Dcmb)
+   N=length(Dcmb);
+   for n=1:N
        [r c] = d94(t,t0,rs_par,Dcmb(n)); 
-       R=R+r; C=C+c;
+       R=R+r/N; C=C+c/N;
    end
 else
 
    %Write eq. 12 in Dieterich, 1994, as: r = A/(B*exp(-t/ta)+1);
    A = r0*tdot/tdotr;
    B = tdot/tdotr*exp(-Dcmb/asig)-1;
-
+   
    R = A./(B*exp(-t/ta)+1);
    %Integrate R between 0,t:
-   C = A*ta*[log(exp(t/ta)+B) - log(exp(t0/ta)+B)];
+   if isinf(B)       
+     C = 0;
+   else
+     C = A*ta*[log(exp(t/ta)+B) - log(exp(t0/ta)+B)];
+   end
 end
 

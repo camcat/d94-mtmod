@@ -35,8 +35,11 @@ ntot=zeros(length(cmb),length(ts));
 
 % Calculate seismicity rate and number of events at each point:
 disp('Calculating seismicity...')
-for n=1:length(cmb) 
-  [r, c]=d94(ts, t0, rs_par, cmb(n));
+%Assume uniform background rate and split it equally among grid points:
+par=[rs_par(1)/length(cmb) rs_par(2) rs_par(3)];
+
+for n=1:length(cmb)
+  [r, c]=d94(ts, t0, par, cmb(n));
   rate(n,:)=r;
   ntot(n,:)=c;
 end

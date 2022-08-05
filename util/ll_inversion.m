@@ -15,17 +15,17 @@ function [asig, ta, r0, inv] = ll_inversion(cat, cmb, tstart, tend, asig0, ta0, 
 %   inv = inversion results (only if mode='grid'). Contains asigs, tas, LL values.
 
 if exist('asig0')~=1 asig0=[0.01 100]*10; end
-if exist('ta0')~=1  ta0=[0.01 100]*1000; end
+if exist('ta0')~=1  ta0=[0.01 100]*100; end
 if exist('mode')~=1 mode='grid'; end
-if exist('nsteps')~=1 nsteps=24; end
-if exist('verbose')~=1 verbose=0; end
+if exist('nsteps')~=1 nsteps=12; end
+if exist('verbose')~=1 verbose=1; end
 
 disp('Log-likelihood inversion with following parameters:');
 disp(['asig in range: [' num2str(asig0(1)) ' ' num2str(asig0(2)) ']']);
 disp(['ta in range: [' num2str(ta0(1)) ' ' num2str(ta0(2)) ']']);
 disp(['Taking ' num2str(nsteps) ' steps'])
 
-isin=cat>tstart & cat<tend;
+isin=cat>=tstart & cat<=tend;
 cat=cat(isin);
 
 llmax=-inf;
@@ -47,6 +47,13 @@ for i=1:length(asigs);
        end
    end
 end
+
+disp(['Optimal parameters: asigma=' num2str(asig) ...
+                             ', ta=' num2str(ta), ...
+                             ', r0=', num2str(r0)]);
+
 inv.asigs=asigs;
 inv.tas=tas;
 inv.ll=ll;
+
+
