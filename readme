@@ -1,6 +1,3 @@
-For Kathryn:
+This is a collection of simple functions to calculate seismicity rates following an instantaneous stress step (or a map thereof), using the formulation from Dieterich (1994).
 
-* I'm assuming header lines start with #. There can be more than one.
-* I'm assuming column divider is " "
-* Identifies lat/lon/dep/cmb by searching for the following strings in the header file: 'lat','lon','depth','coulomb'. If these are found somewhere else in the header file that could be a problem.
-* no of points: 10^5+ will take a long time if we're also interested in the time dependence.
+See tutorial.mlx and tutorial-Norcia.mlx for examples.
