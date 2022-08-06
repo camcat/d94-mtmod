@@ -58,7 +58,7 @@ if exist('output_file')
   data(:,latc)=lat;
   data(:,lonc)=lon;
   data(:,depc)=dep;
-  data(:,cmbc)=sum(ntot');
+  data(:,cmbc)=ntot(:,end);
   
   % Print output file:
   fid=fopen(output_file,'w');

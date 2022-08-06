@@ -48,8 +48,8 @@ for n=1:length(headers)
   % Look for field (not case sensitive):
   col=find(cellfun(@(x) ~isempty(strfind(lower(x),lower(fld))), str));
   if ~isempty(col)
-     disp(['Field "' fld '" found at header line ' num2str(n) ', column ' num2str(col)]);
      col=col-1; %since the first string is a "#"
+     disp(['Field "' fld '" found at header line ' num2str(n) ', column ' num2str(col)]);
      break;
   end
 end
