@@ -1,5 +1,5 @@
-function [R, C] = d94(t, t0, rs_par, Dcmb);
-% function [R, C] = d94(t, t0, rs_par, Dcmb);
+function [R, C] = d94(t, t0, rs_par, Dcmb, verbose);
+% function [R, C] = d94(t, t0, rs_par, Dcmb, verbose);
 %
 % Outputs seismicity rate (R) and cumulative number of earthquakes (C) at times t following a stress step Dcmb at t=0 using the anaytical expressions from:
 %  Dieterich, J. (1994), A constitutive law for rate of earthquake production and its application to earthquake clustering, J. Geophys. Res., 99( B2), 2601– 2618, doi:10.1029/93JB02581.
@@ -19,12 +19,14 @@ ta=rs_par(3);
 tdot=asig/ta;
 if length(rs_par)>3 tdotr=rs_par(4); else tdotr=tdot; end
 
+if exist('verbose')~=1 verbose=0; end
+
 % If Dcmb is an array, loop over elements.
 if length(Dcmb)>1
    R=0; C=0;
    N=length(Dcmb);
    for n=1:N
-       [r c] = d94(t,t0,rs_par,Dcmb(n)); 
+       [r c] = d94(t,t0,rs_par,Dcmb(n),0); 
        R=R+r/N; C=C+c/N;
    end
 else
@@ -38,7 +40,7 @@ else
    if isinf(B)       
      C = zeros(size(R));
      %Seismicity rate is practically 0 until t=(-Dcmb+2Asigma)/tdot (Maccaferri et al., 2017, "The stress shadow induced by the 1975–1984 Krafla rifting episode").
-     warning("Large negative Dcmb: setting C=0 (this is ok for t<~Dcmb/tdot)")
+     if (verbose) warning("Large negative Dcmb: setting C=0 (this is ok for t<~Dcmb/tdot)"); end
    else
      C = A*ta*[log(exp(t/ta)+B) - log(exp(t0/ta)+B)];
    end
